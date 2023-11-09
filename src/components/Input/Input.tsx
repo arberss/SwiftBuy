@@ -19,7 +19,7 @@ const Input = ({ onChangeText, value, placeholder }: InputProps) => {
         placeholderTextColor='#737373'
         autoCorrect={false}
       />
-      <FilterIcon />
+      <FilterIcon wrapperStyle={{ borderRadius: 8 }} />
     </View>
   );
 };

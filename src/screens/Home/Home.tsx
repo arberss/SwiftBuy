@@ -31,12 +31,12 @@ const Home = () => {
                   }}
                   customStyle={{ marginTop: index < 1 ? 0 : 22 }}
                   src={item.src}
-                  icon={<CartIcon customStyle={{ backgroundColor: '#fff' }} />}
+                  icon={<CartIcon wrapperStyle={{ backgroundColor: '#fff' }} />}
                 />
               );
             }}
             estimatedItemSize={10}
-            contentContainerStyle={{ paddingBottom: 320 }}
+            contentContainerStyle={{ paddingBottom: 300 }}
             showsVerticalScrollIndicator={false}
           />
         </View>

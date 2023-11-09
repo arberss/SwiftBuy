@@ -1,6 +1,7 @@
 import {
   Image,
   ImageSourcePropType,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,6 +16,8 @@ interface IProductCardProps {
   icon?: JSX.Element;
   onIconClick?: () => void;
   onPress?: () => void;
+  titleIcon?: JSX.Element;
+  onTitleIconClick?: () => void;
 }
 
 const ProductCard = ({
@@ -25,6 +28,8 @@ const ProductCard = ({
   icon,
   onIconClick,
   onPress,
+  titleIcon,
+  onTitleIconClick,
 }: IProductCardProps) => {
   return (
     <TouchableOpacity style={[styles.wrapper, customStyle]} onPress={onPress}>
@@ -36,7 +41,14 @@ const ProductCard = ({
       <View style={styles.imageWrapper}>
         <Image style={styles.image} source={src} />
       </View>
-      <Text style={styles.title}>{title}</Text>
+      <View style={[styles.titleFlex, { marginTop: titleIcon ? 10 : 0 }]}>
+        <Text style={styles.title}>{title}</Text>
+        {titleIcon && (
+          <TouchableOpacity>
+            <Text onPress={onTitleIconClick}>{titleIcon}</Text>
+          </TouchableOpacity>
+        )}
+      </View>
       <Text style={styles.price}>{price} €</Text>
     </TouchableOpacity>
   );
@@ -76,5 +88,9 @@ const styles = StyleSheet.create({
     top: 10,
     right: 10,
     zIndex: 2,
+  },
+  titleFlex: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

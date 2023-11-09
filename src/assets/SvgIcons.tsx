@@ -4,9 +4,14 @@ import Svg, { Path } from 'react-native-svg';
 import { StyleSheet, View } from 'react-native';
 
 export function BackIcon(props: any) {
-  const { fillColor = '#fff', width = '20px', height = '20px' } = props;
+  const {
+    wrapperStyle,
+    fillColor = '#fff',
+    width = '20px',
+    height = '20px',
+  } = props;
   return (
-    <View style={styles.border}>
+    <View style={[styles.border, wrapperStyle]}>
       <Svg
         width={width}
         height={height}
@@ -29,10 +34,15 @@ export function BackIcon(props: any) {
 }
 
 export function FavoriteIcon(props: any) {
-  const { fillColor = '#fff', width = '20px', height = '20px' } = props;
+  const {
+    wrapperStyle,
+    fillColor = '#fff',
+    width = '20px',
+    height = '20px',
+  } = props;
 
   return (
-    <View style={styles.border}>
+    <View style={[styles.border, wrapperStyle]}>
       <Svg
         width={width}
         height={height}
@@ -56,34 +66,46 @@ export function FavoriteIcon(props: any) {
 }
 
 export function SearchIcon(props: any) {
-  const { fillColor = '#fff', width = '20px', height = '20px' } = props;
+  const {
+    wrapperStyle,
+    fillColor = '#fff',
+    width = '20px',
+    height = '20px',
+  } = props;
 
   return (
-    <Svg
-      width={width}
-      height={height}
-      viewBox='0 0 20 20'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-      {...props}
-    >
-      <Path
-        d='M17.5 17.5l-3.625-3.625M9.167 5a4.167 4.167 0 014.166 4.167m2.5 0a6.667 6.667 0 11-13.333 0 6.667 6.667 0 0113.333 0z'
-        stroke='#737373'
-        strokeWidth={1.66667}
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        fill={fillColor}
-      />
-    </Svg>
+    <View style={wrapperStyle}>
+      <Svg
+        width={width}
+        height={height}
+        viewBox='0 0 20 20'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+        {...props}
+      >
+        <Path
+          d='M17.5 17.5l-3.625-3.625M9.167 5a4.167 4.167 0 014.166 4.167m2.5 0a6.667 6.667 0 11-13.333 0 6.667 6.667 0 0113.333 0z'
+          stroke='#737373'
+          strokeWidth={1.66667}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          fill={fillColor}
+        />
+      </Svg>
+    </View>
   );
 }
 
 export function FilterIcon(props: any) {
-  const { fillColor = '#fff', width = '20px', height = '20px' } = props;
+  const {
+    wrapperStyle,
+    fillColor = '#fff',
+    width = '20px',
+    height = '20px',
+  } = props;
 
   return (
-    <View style={[styles.border, { borderRadius: 8 }]}>
+    <View style={[styles.border, wrapperStyle]}>
       <Svg
         width={width}
         height={height}
@@ -110,11 +132,11 @@ export function CartIcon(props: any) {
     fillColor = '#fff',
     width = '20px',
     height = '20px',
-    customStyle,
+    wrapperStyle,
   } = props;
 
   return (
-    <View style={[styles.border, customStyle]}>
+    <View style={[styles.border, wrapperStyle]}>
       <Svg
         width={width}
         height={height}
@@ -138,6 +160,7 @@ export function CartIcon(props: any) {
 
 export function HomeIcon(props: any) {
   const {
+    wrapperStyle,
     fillColor = '#fff',
     width = '50px',
     height = '50px',
@@ -145,28 +168,31 @@ export function HomeIcon(props: any) {
   } = props;
 
   return (
-    <Svg
-      width={width}
-      height={height}
-      viewBox='0 0 50 50'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-      {...props}
-    >
-      <Path
-        d='M16 23.565c0-.574 0-.862.074-1.126a2 2 0 01.318-.65c.163-.22.39-.397.843-.75l6.783-5.275c.351-.273.527-.41.72-.462a1 1 0 01.523 0c.194.052.37.189.721.462l6.783 5.275c.453.353.68.53.843.75a2 2 0 01.318.65c.074.264.074.552.074 1.126V30.8c0 1.12 0 1.68-.218 2.108a2 2 0 01-.874.874C32.48 34 31.92 34 30.8 34H19.2c-1.12 0-1.68 0-2.108-.218a2 2 0 01-.874-.874C16 32.48 16 31.92 16 30.8v-7.235z'
-        stroke={stroke}
-        strokeWidth={2}
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        fill={fillColor}
-      />
-    </Svg>
+    <View style={wrapperStyle}>
+      <Svg
+        width={width}
+        height={height}
+        viewBox='0 0 50 50'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+        {...props}
+      >
+        <Path
+          d='M16 23.565c0-.574 0-.862.074-1.126a2 2 0 01.318-.65c.163-.22.39-.397.843-.75l6.783-5.275c.351-.273.527-.41.72-.462a1 1 0 01.523 0c.194.052.37.189.721.462l6.783 5.275c.453.353.68.53.843.75a2 2 0 01.318.65c.074.264.074.552.074 1.126V30.8c0 1.12 0 1.68-.218 2.108a2 2 0 01-.874.874C32.48 34 31.92 34 30.8 34H19.2c-1.12 0-1.68 0-2.108-.218a2 2 0 01-.874-.874C16 32.48 16 31.92 16 30.8v-7.235z'
+          stroke={stroke}
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          fill={fillColor}
+        />
+      </Svg>
+    </View>
   );
 }
 
 export function CartTabIcon(props: any) {
   const {
+    wrapperStyle,
     fillColor = '#fff',
     width = '50px',
     height = '50px',
@@ -174,47 +200,56 @@ export function CartTabIcon(props: any) {
   } = props;
 
   return (
-    <Svg
-      width={width}
-      height={height}
-      viewBox='0 0 51 50'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-      {...props}
-    >
-      <Path
-        d='M29.334 22v-3a4 4 0 00-8 0v3m-4.408 1.352l-.6 6.4c-.17 1.82-.256 2.73.046 3.432a3 3 0 001.32 1.45c.671.366 1.585.366 3.413.366h8.458c1.827 0 2.741 0 3.413-.366a3 3 0 001.32-1.45c.302-.703.216-1.612.046-3.432l-.6-6.4c-.144-1.537-.216-2.305-.562-2.886a3 3 0 00-1.292-1.176c-.61-.29-1.382-.29-2.925-.29h-7.258c-1.544 0-2.315 0-2.926.29a3 3 0 00-1.292 1.176c-.345.581-.417 1.35-.561 2.886z'
-        stroke={stroke}
-        strokeWidth={2}
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        fill={fillColor}
-      />
-    </Svg>
+    <View style={wrapperStyle}>
+      <Svg
+        width={width}
+        height={height}
+        viewBox='0 0 51 50'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+        {...props}
+      >
+        <Path
+          d='M29.334 22v-3a4 4 0 00-8 0v3m-4.408 1.352l-.6 6.4c-.17 1.82-.256 2.73.046 3.432a3 3 0 001.32 1.45c.671.366 1.585.366 3.413.366h8.458c1.827 0 2.741 0 3.413-.366a3 3 0 001.32-1.45c.302-.703.216-1.612.046-3.432l-.6-6.4c-.144-1.537-.216-2.305-.562-2.886a3 3 0 00-1.292-1.176c-.61-.29-1.382-.29-2.925-.29h-7.258c-1.544 0-2.315 0-2.926.29a3 3 0 00-1.292 1.176c-.345.581-.417 1.35-.561 2.886z'
+          stroke={stroke}
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          fill={fillColor}
+        />
+      </Svg>
+    </View>
   );
 }
 
 export function ArrowBottomIcon(props: any) {
-  const { fillColor = '#fff', width = '24px', height = '24px' } = props;
+  const {
+    wrapperStyle,
+    fillColor = '#fff',
+    width = '24px',
+    height = '24px',
+  } = props;
 
   return (
-    <Svg
-      width={width}
-      height={height}
-      viewBox='0 0 24 25'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-      {...props}
-    >
-      <Path
-        d='M6 9.5l6 6 6-6'
-        stroke='#141414'
-        strokeWidth={2}
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        fill={fillColor}
-      />
-    </Svg>
+    <View style={wrapperStyle}>
+      <Svg
+        width={width}
+        height={height}
+        viewBox='0 0 24 25'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+        {...props}
+      >
+        <Path
+          d='M6 9.5l6 6 6-6'
+          stroke='#141414'
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          fill={fillColor}
+        />
+      </Svg>
+    </View>
   );
 }
 
@@ -224,5 +259,6 @@ const styles = StyleSheet.create({
     borderColor: '#D6D6D6',
     borderRadius: 14,
     padding: 10,
+    backgroundColor: '#fff',
   },
 });

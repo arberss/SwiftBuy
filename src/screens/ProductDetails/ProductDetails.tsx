@@ -13,45 +13,10 @@ import CarouselDots from './components/CarouselDots';
 import { ScrollView } from 'react-native-gesture-handler';
 import Accordion from './components/Accordion';
 import BottomCard from './components/BottomCard';
-import { accordionData } from './helper';
-
-const IMAGES = [
-  {
-    id: 1,
-    src: require('@/assets/images/prod1img.png'),
-  },
-  {
-    id: 2,
-    src: require('@/assets/images/prod1img.png'),
-  },
-  {
-    id: 3,
-    src: require('@/assets/images/prodimg2.png'),
-  },
-];
-
-const sizes = [
-  {
-    id: 1,
-    size: 'XS',
-  },
-  {
-    id: 2,
-    size: 'S',
-  },
-  {
-    id: 3,
-    size: 'M',
-  },
-  {
-    id: 4,
-    size: 'L',
-  },
-  {
-    id: 5,
-    size: 'XL',
-  },
-];
+import { accordionData, IMAGES, sizes } from './helper';
+import ProductCard from '@/components/Cards/ProductCard';
+import { CartIcon, FavoriteIcon } from '@/assets/SvgIcons';
+import { PRODUCTS } from '@/mockData/products';
 
 const { width } = Dimensions.get('window');
 
@@ -70,7 +35,10 @@ const ProductDetails = () => {
         <Header.Back />
         <Header.Favorite />
       </Header>
-      <ScrollView showsVerticalScrollIndicator={false} style={[styles.container, { marginBottom: 150 }]}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={[styles.container, { marginBottom: 145 }]}
+      >
         <Carousel
           ref={carouselRef}
           loop={false}
@@ -121,6 +89,26 @@ const ProductDetails = () => {
             />
           );
         })}
+
+        <View style={{ paddingVertical: 10, paddingHorizontal: 24 }}>
+          <Text style={styles.productDetailsTitle}>Related Products</Text>
+          <ProductCard
+            title={PRODUCTS[0].title}
+            price={PRODUCTS[0].price}
+            onPress={() => {}}
+            customStyle={{ marginTop: 10 }}
+            src={PRODUCTS[0].src}
+            icon={<FavoriteIcon customStyle={{ backgroundColor: '#fff' }} />}
+            titleIcon={
+              <CartIcon
+                wrapperStyle={{
+                  backgroundColor: '#FAFAFA',
+                  borderColor: 'transparent',
+                }}
+              />
+            }
+          />
+        </View>
       </ScrollView>
       <BottomCard price='99.00' />
     </>
@@ -130,10 +118,6 @@ const ProductDetails = () => {
 export default ProductDetails;
 
 const styles = StyleSheet.create({
-  wrapper: {
-    // flexGrow: 1,
-    // position: 'relative',
-  },
   container: {
     flexGrow: 1,
   },

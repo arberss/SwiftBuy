@@ -1,13 +1,13 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HomeScreen from '@/screens/Home/Home';
+import Cart from './Cart';
 
-const Home = () => {
+const CartScreen = () => {
   return (
     <SafeAreaView>
-      <HomeScreen />
+      <Cart />
     </SafeAreaView>
   );
 };
 
-export default Home;
+export default CartScreen;

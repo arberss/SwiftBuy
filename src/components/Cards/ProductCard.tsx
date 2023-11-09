@@ -3,6 +3,7 @@ import {
   ImageSourcePropType,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -11,17 +12,33 @@ interface IProductCardProps {
   price: string;
   src: ImageSourcePropType;
   customStyle?: Object;
+  icon?: JSX.Element;
+  onIconClick?: () => void;
+  onPress?: () => void;
 }
 
-const ProductCard = ({ title, price, src, customStyle }: IProductCardProps) => {
+const ProductCard = ({
+  title,
+  price,
+  src,
+  customStyle,
+  icon,
+  onIconClick,
+  onPress,
+}: IProductCardProps) => {
   return (
-    <View style={[styles.wrapper, customStyle]}>
+    <TouchableOpacity style={[styles.wrapper, customStyle]} onPress={onPress}>
+      {icon ? (
+        <TouchableOpacity style={styles.iconButton} onPress={onIconClick}>
+          <Text>{icon}</Text>
+        </TouchableOpacity>
+      ) : null}
       <View style={styles.imageWrapper}>
         <Image style={styles.image} source={src} />
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>{price} €</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -31,6 +48,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'column',
     gap: 4,
+    position: 'relative',
   },
   imageWrapper: {
     width: '100%',
@@ -52,5 +70,11 @@ const styles = StyleSheet.create({
     color: '#161A14',
     fontFamily: 'Saira-Light',
     fontSize: 16,
+  },
+  iconButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 2,
   },
 });

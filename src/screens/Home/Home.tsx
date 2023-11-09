@@ -5,8 +5,12 @@ import Input from '@/components/Input/Input';
 import ProductCard from '@/components/Cards/ProductCard';
 import { FlashList } from '@shopify/flash-list';
 import { PRODUCTS } from '@/mockData/products';
+import { CartIcon } from '@/assets/SvgIcons';
+import { useNavigation } from '@react-navigation/native';
 
-const HomeScreen = () => {
+const Home = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <Header>
@@ -22,8 +26,12 @@ const HomeScreen = () => {
                 <ProductCard
                   title={item?.title}
                   price={item?.price}
+                  onPress={() => {
+                    navigation.navigate('ProductDetails');
+                  }}
                   customStyle={{ marginTop: index < 1 ? 0 : 22 }}
                   src={item.src}
+                  icon={<CartIcon customStyle={{ backgroundColor: '#fff' }} />}
                 />
               );
             }}
@@ -37,7 +45,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default Home;
 
 const styles = StyleSheet.create({
   container: {

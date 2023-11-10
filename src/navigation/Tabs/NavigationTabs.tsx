@@ -3,7 +3,7 @@ import Cart from '@/screens/Cart/Cart';
 import Favorites from '@/screens/Favorites/Favorites';
 import Home from '@/screens/Home/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +17,14 @@ const NavigationTabs = () => {
           color: '#afafaf',
         },
         tabBarStyle: {
-          padding: 16,
+          ...Platform.select({
+            ios: {
+              padding: 16,
+            },
+            android: {
+              padding: 0,
+            },
+          }),
           borderTopWidth: 1,
           borderTopColor: '#EAECF0',
         },
@@ -29,7 +36,7 @@ const NavigationTabs = () => {
           tabBarIcon: ({ focused }) =>
             focused ? (
               <View style={styles.activeTab}>
-                <HomeIcon stroke='#fff' />
+                <HomeIcon stroke='#fff' width='40px' height='40px' />
               </View>
             ) : (
               <HomeIcon />
@@ -44,7 +51,12 @@ const NavigationTabs = () => {
           tabBarIcon: ({ focused }) =>
             focused ? (
               <View style={styles.activeTab}>
-                <CartTabIcon stroke='#fff' fillColor='transparent' />
+                <CartTabIcon
+                  stroke='#fff'
+                  fillColor='transparent'
+                  width='40px'
+                  height='40px'
+                />
               </View>
             ) : (
               <CartTabIcon />
@@ -60,8 +72,8 @@ const NavigationTabs = () => {
             focused ? (
               <View style={styles.activeTab}>
                 <FavoriteIcon
-                  width='26px'
-                  height='26px'
+                  width='20px'
+                  height='20px'
                   stroke='#fff'
                   wrapperStyle={{
                     borderWidth: 0,

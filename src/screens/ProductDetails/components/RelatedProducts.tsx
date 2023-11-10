@@ -19,8 +19,8 @@ interface RelatedProductsProps {
 
 const RelatedProducts = ({ item }: RelatedProductsProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const { cart } = useCart((state) => state);
-  const { favorites } = useFavorites((state) => state);
+  const { cart, setInCart } = useCart((state) => state);
+  const { favorites, setInFavorites } = useFavorites((state) => state);
 
   const checkCart = useMemo(() => {
     return cart.find((cartItem) => cartItem.id === item.id);
@@ -60,6 +60,8 @@ const RelatedProducts = ({ item }: RelatedProductsProps) => {
         customStyle={{ marginTop: 10 }}
         icon={FavIcon}
         titleIcon={CardIcon}
+        onIconClick={() => (checkFavorite ? null : setInFavorites(item))}
+        onTitleIconClick={() => (checkCart ? null : setInCart(item))}
       />
     </View>
   );

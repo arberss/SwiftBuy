@@ -13,11 +13,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import RelatedProducts from './components/RelatedProducts';
 import ProductSizes from './components/ProductSizes';
+import { useFavorites } from '@/store/useFavorites';
 
 const { width } = Dimensions.get('window');
 
 const ProductDetails = () => {
   const route = useRoute() as { params: { productId: number } };
+  const { favorites, setInFavorites } = useFavorites((state) => state);
 
   const carouselRef = useRef<ICarouselInstance | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -35,6 +37,9 @@ const ProductDetails = () => {
   const data = PRODUCTS.find(
     (product) => product.id === route?.params?.productId
   );
+  const checkFavorite = useMemo(() => {
+    return favorites.find((item) => item.id === data?.id);
+  }, [data?.id, favorites.length]);
 
   const randomId = useMemo(() => {
     return Math.floor(Math.random() * PRODUCTS.length) + 1;
@@ -49,7 +54,10 @@ const ProductDetails = () => {
       <SafeAreaView edges={['top']}>
         <Header style={{ borderBottomWidth: 0 }}>
           <Header.Back />
-          <Header.Favorite />
+          <Header.Favorite
+            onPress={() => setInFavorites(data!)}
+            disabled={!!checkFavorite}
+          />
         </Header>
       </SafeAreaView>
       <View style={{ flexGrow: 1 }}>
@@ -106,7 +114,7 @@ const ProductDetails = () => {
           <RelatedProducts item={relatedProduct!} />
         </ScrollView>
         <SafeAreaView edges={['bottom']}>
-          <BottomCard price={data?.price!} />
+          <BottomCard item={data!} />
         </SafeAreaView>
       </View>
     </>

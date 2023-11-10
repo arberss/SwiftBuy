@@ -1,17 +1,8 @@
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { IProduct } from '@/store/useCart';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 interface ListCardProps {
-  item: {
-    title: string;
-    price: string;
-    src: ImageSourcePropType;
-  };
+  item: IProduct;
   customStyle?: Object;
 }
 

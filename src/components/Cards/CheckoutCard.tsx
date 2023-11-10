@@ -1,20 +1,28 @@
+import { useCart } from '@/store/useCart';
+import { useMemo } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-interface CheckoutCardProps {
-  price: string;
-}
+const CheckoutCard = () => {
+  const { cart } = useCart((state) => state);
 
-const CheckoutCard = ({ price }: CheckoutCardProps) => {
+  const calculateTotalPrice = useMemo(() => {
+    return cart.reduce((acc, val) => {
+      return acc + val.price;
+    }, 0);
+  }, [cart.length]);
+
   return (
     <View style={styles.container}>
       <View style={styles.flex}>
-        <Text>3 items</Text>
-        <Text>
-          Total €<Text>{price}</Text>
+        <Text style={styles.itemText}>
+          {cart.length} {cart.length === 1 ? 'item' : 'items'}
+        </Text>
+        <Text style={styles.itemText}>
+          Total <Text style={styles.price}>€{calculateTotalPrice}</Text>
         </Text>
       </View>
       <Pressable style={styles.button}>
-        <Text style={styles.text}>Add To Cart</Text>
+        <Text style={styles.text}>Checkout</Text>
       </Pressable>
     </View>
   );
@@ -48,5 +56,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontFamily: 'Saira-Medium',
+    fontSize: 16,
+  },
+  itemText: {
+    color: '#292929',
+    fontFamily: 'Saira-Medium',
+    fontSize: 16,
+  },
+  price: {
+    color: '#292929',
+    fontFamily: 'Saira-Bold',
+    fontSize: 16,
   },
 });

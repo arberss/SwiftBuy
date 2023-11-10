@@ -1,5 +1,5 @@
 import { DeleteIcon } from '@/assets/SvgIcons';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useRef } from 'react';
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -14,8 +14,9 @@ const RightActions = ({ dragX, onPress }: RightActionsProps) => {
     outputRange: [1, 0],
     extrapolate: 'clamp',
   });
+
   return (
-    <TouchableOpacity onPress={() => onPress()} style={styles.buttonStyle}>
+    <TouchableOpacity onPress={onPress} style={styles.buttonStyle}>
       <Animated.Text
         style={[
           {
@@ -34,10 +35,18 @@ interface SwipeableWrapperProps extends PropsWithChildren {
 }
 
 const SwipeableWrapper = ({ children, onPress }: SwipeableWrapperProps) => {
+  const swipeableRef = useRef<Swipeable | null>(null);
+
+  const handleOnPress = () => {
+    onPress();
+    swipeableRef?.current?.close();
+  };
+
   return (
     <Swipeable
+      ref={swipeableRef}
       renderRightActions={(_progress: any, dragX: any) => (
-        <RightActions dragX={dragX} onPress={onPress} />
+        <RightActions dragX={dragX} onPress={handleOnPress} />
       )}
     >
       {children}

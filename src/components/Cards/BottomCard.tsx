@@ -1,16 +1,28 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { IProduct, useCart } from '@/store/useCart';
+import { useMemo } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface BottomCardProps {
-  price: string;
+  item: IProduct;
 }
 
-const BottomCard = ({ price }: BottomCardProps) => {
+const BottomCard = ({ item }: BottomCardProps) => {
+  const { cart, setInCart } = useCart((state) => state);
+
+  const checkCart = useMemo(() => {
+    return cart.find((cartItem) => cartItem.id === item.id);
+  }, [item.id, cart.length]);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.price}>€{price}</Text>
-      <Pressable style={styles.button}>
-        <Text style={styles.text}>Add To Cart</Text>
-      </Pressable>
+      <Text style={styles.price}>€{item?.price}</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => setInCart(item)}
+        disabled={!!checkCart}
+      >
+        <Text style={styles.text}>{checkCart ? 'In Cart' : 'Add To Cart'}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -44,6 +56,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     fontFamily: 'Saira-Medium',
+    fontSize: 16
   },
   price: {
     color: '#141414',

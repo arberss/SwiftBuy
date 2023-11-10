@@ -1,22 +1,51 @@
-import { ImageSourcePropType, Text, View } from 'react-native';
-import React from 'react';
+import { Text, View } from 'react-native';
+import React, { useMemo } from 'react';
 import ProductCard from '@/components/Cards/ProductCard';
-import { CartIcon, FavoriteIcon } from '@/assets/SvgIcons';
+import {
+  CartFilledIcon,
+  CartIcon,
+  FavoriteFilledIcon,
+  FavoriteIcon,
+} from '@/assets/SvgIcons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../styles';
+import { IProduct, useCart } from '@/store/useCart';
+import { useFavorites } from '@/store/useFavorites';
 
 interface RelatedProductsProps {
-  item: {
-    id: number;
-    title: string;
-    price: string;
-    src: ImageSourcePropType;
-  };
+  item: IProduct;
 }
 
 const RelatedProducts = ({ item }: RelatedProductsProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
+  const { cart } = useCart((state) => state);
+  const { favorites } = useFavorites((state) => state);
+
+  const checkCart = useMemo(() => {
+    return cart.find((cartItem) => cartItem.id === item.id);
+  }, [item.id, cart.length]);
+
+  const CardIcon = checkCart ? (
+    <CartFilledIcon wrapperStyle={{ backgroundColor: '#000' }} />
+  ) : (
+    <CartIcon
+      wrapperStyle={{
+        backgroundColor: '#FAFAFA',
+        borderColor: 'transparent',
+      }}
+    />
+  );
+
+  const checkFavorite = useMemo(() => {
+    return favorites.find((favoriteItem) => favoriteItem.id === item.id);
+  }, [item.id, favorites.length]);
+
+  const FavIcon = checkFavorite ? (
+    <FavoriteFilledIcon />
+  ) : (
+    <FavoriteIcon customStyle={{ backgroundColor: '#fff' }} />
+  );
 
   return (
     <View style={{ paddingVertical: 10, paddingHorizontal: 24 }}>
@@ -29,15 +58,8 @@ const RelatedProducts = ({ item }: RelatedProductsProps) => {
           });
         }}
         customStyle={{ marginTop: 10 }}
-        icon={<FavoriteIcon customStyle={{ backgroundColor: '#fff' }} />}
-        titleIcon={
-          <CartIcon
-            wrapperStyle={{
-              backgroundColor: '#FAFAFA',
-              borderColor: 'transparent',
-            }}
-          />
-        }
+        icon={FavIcon}
+        titleIcon={CardIcon}
       />
     </View>
   );

@@ -1,6 +1,6 @@
+import { IProduct } from '@/store/useCart';
 import {
   Image,
-  ImageSourcePropType,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -8,11 +8,7 @@ import {
 } from 'react-native';
 
 interface IProductCardProps {
-  item: {
-    title: string;
-    price: string;
-    src: ImageSourcePropType;
-  };
+  item: IProduct;
   customStyle?: Object;
   icon?: JSX.Element;
   onIconClick?: () => void;

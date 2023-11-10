@@ -1,14 +1,17 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Header from '@/components/Header/Header';
 import ListCard from '@/components/Cards/ListCard';
 import { FlashList } from '@shopify/flash-list';
-import { PRODUCTS } from '@/mockData/products';
 import SwipeableWrapper from '@/components/Swipeable/Swipeable';
 import CheckoutCard from '../../components/Cards/CheckoutCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useCart } from '@/store/useCart';
+import EmptyListText from '@/components/EmptyListText/EmptyListText';
 
 const Cart = () => {
+  const { cart, removeFromCart } = useCart((state) => state);
+
   return (
     <>
       <SafeAreaView edges={['top']}>
@@ -19,21 +22,24 @@ const Cart = () => {
       <View style={{ flexGrow: 1 }}>
         <View style={styles.container}>
           <FlashList
-            data={PRODUCTS}
+            data={cart}
             renderItem={({ item, index }) => {
               return (
                 <View style={{ marginTop: index < 1 ? 0 : 16 }}>
-                  <SwipeableWrapper onPress={() => {}}>
+                  <SwipeableWrapper onPress={() => removeFromCart(item.id)}>
                     <ListCard item={item} />
                   </SwipeableWrapper>
                 </View>
               );
             }}
+            ListEmptyComponent={
+              <EmptyListText text="You don't have any product in cart" />
+            }
             estimatedItemSize={10}
             showsVerticalScrollIndicator={false}
           />
         </View>
-        <CheckoutCard price='20' />
+        <CheckoutCard />
       </View>
     </>
   );

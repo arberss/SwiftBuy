@@ -1,4 +1,4 @@
-import { BackIcon, FavoriteIcon } from '@/assets/SvgIcons';
+import { BackIcon, FavoriteFilledIcon, FavoriteIcon } from '@/assets/SvgIcons';
 import { createContext, PropsWithChildren } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -33,12 +33,19 @@ const Back = () => {
   );
 };
 
-const Favorite = () => {
+const Favorite = ({
+  onPress,
+  disabled,
+}: {
+  onPress: () => void;
+  disabled: boolean;
+}) => {
+  // if disabled is true we know that it's already in favorite
+  const FavIcon = disabled ? <FavoriteFilledIcon /> : <FavoriteIcon />;
+
   return (
-    <TouchableOpacity>
-      <Text>
-        <FavoriteIcon />
-      </Text>
+    <TouchableOpacity onPress={onPress} disabled={disabled}>
+      <Text>{FavIcon}</Text>
     </TouchableOpacity>
   );
 };

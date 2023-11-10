@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import Header from '@/components/Header/Header';
 import ListCard from '@/components/Cards/ListCard';
 import { FlashList } from '@shopify/flash-list';

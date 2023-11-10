@@ -1,6 +1,12 @@
 import { BackIcon, FavoriteFilledIcon, FavoriteIcon } from '@/assets/SvgIcons';
 import { createContext, PropsWithChildren } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const HeaderContext = createContext(null);
@@ -44,9 +50,9 @@ const Favorite = ({
   const FavIcon = disabled ? <FavoriteFilledIcon /> : <FavoriteIcon />;
 
   return (
-    <TouchableOpacity onPress={onPress} disabled={disabled}>
+    <Pressable onPress={onPress} disabled={disabled}>
       <Text>{FavIcon}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -1,6 +1,7 @@
 import { IProduct } from '@/store/useCart';
 import {
   Image,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -29,9 +30,9 @@ const ProductCard = ({
   return (
     <TouchableOpacity style={[styles.wrapper, customStyle]} onPress={onPress}>
       {icon ? (
-        <TouchableOpacity style={styles.iconButton} onPress={onIconClick}>
+        <Pressable style={styles.iconButton} onPress={onIconClick}>
           <Text>{icon}</Text>
-        </TouchableOpacity>
+        </Pressable>
       ) : null}
       <View style={styles.imageWrapper}>
         <Image style={styles.image} source={item?.src} />
@@ -39,9 +40,9 @@ const ProductCard = ({
       <View style={[styles.titleFlex, { marginTop: titleIcon ? 10 : 0 }]}>
         <Text style={styles.title}>{item?.title}</Text>
         {titleIcon && (
-          <TouchableOpacity>
-            <Text onPress={onTitleIconClick}>{titleIcon}</Text>
-          </TouchableOpacity>
+          <Pressable onPress={onTitleIconClick}>
+            <Text>{titleIcon}</Text>
+          </Pressable>
         )}
       </View>
       <Text style={styles.price}>{item?.price} €</Text>

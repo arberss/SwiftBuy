@@ -1,27 +1,51 @@
+import { IProduct } from '@/store/useCart';
 import {
   Image,
-  ImageSourcePropType,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
 interface IProductCardProps {
-  title: string;
-  price: string;
-  src: ImageSourcePropType;
+  item: IProduct;
   customStyle?: Object;
+  icon?: JSX.Element;
+  onIconClick?: () => void;
+  onPress?: () => void;
+  titleIcon?: JSX.Element;
+  onTitleIconClick?: () => void;
 }
 
-const ProductCard = ({ title, price, src, customStyle }: IProductCardProps) => {
+const ProductCard = ({
+  item,
+  customStyle,
+  icon,
+  onIconClick,
+  onPress,
+  titleIcon,
+  onTitleIconClick,
+}: IProductCardProps) => {
   return (
-    <View style={[styles.wrapper, customStyle]}>
+    <TouchableOpacity style={[styles.wrapper, customStyle]} onPress={onPress}>
+      {icon ? (
+        <TouchableOpacity style={styles.iconButton} onPress={onIconClick}>
+          <Text>{icon}</Text>
+        </TouchableOpacity>
+      ) : null}
       <View style={styles.imageWrapper}>
-        <Image style={styles.image} source={src} />
+        <Image style={styles.image} source={item?.src} />
       </View>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>{price} €</Text>
-    </View>
+      <View style={[styles.titleFlex, { marginTop: titleIcon ? 10 : 0 }]}>
+        <Text style={styles.title}>{item?.title}</Text>
+        {titleIcon && (
+          <TouchableOpacity>
+            <Text onPress={onTitleIconClick}>{titleIcon}</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+      <Text style={styles.price}>{item?.price} €</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -31,6 +55,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'column',
     gap: 4,
+    position: 'relative',
   },
   imageWrapper: {
     width: '100%',
@@ -52,5 +77,15 @@ const styles = StyleSheet.create({
     color: '#161A14',
     fontFamily: 'Saira-Light',
     fontSize: 16,
+  },
+  iconButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 2,
+  },
+  titleFlex: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

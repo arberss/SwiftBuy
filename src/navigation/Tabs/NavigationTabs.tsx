@@ -1,7 +1,7 @@
 import { CartTabIcon, FavoriteIcon, HomeIcon } from '@/assets/SvgIcons';
-import CartScreen from '@/screens/Cart';
-import FavoritesScreen from '@/screens/Favorites';
-import HomeScreen from '@/screens/Home';
+import Cart from '@/screens/Cart/Cart';
+import Favorites from '@/screens/Favorites/Favorites';
+import Home from '@/screens/Home/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, View } from 'react-native';
 
@@ -36,7 +36,7 @@ const NavigationTabs = () => {
             ),
         }}
         name='HomeTab'
-        component={HomeScreen}
+        component={Home}
       />
       <Tab.Screen
         options={{
@@ -51,7 +51,7 @@ const NavigationTabs = () => {
             ),
         }}
         name='CartTab'
-        component={CartScreen}
+        component={Cart}
       />
       <Tab.Screen
         options={{
@@ -81,7 +81,7 @@ const NavigationTabs = () => {
             ),
         }}
         name='FavoriteTab'
-        component={FavoritesScreen}
+        component={Favorites}
       />
     </Tab.Navigator>
   );

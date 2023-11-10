@@ -8,9 +8,11 @@ import {
 } from 'react-native';
 
 interface IProductCardProps {
-  title: string;
-  price: string;
-  src: ImageSourcePropType;
+  item: {
+    title: string;
+    price: string;
+    src: ImageSourcePropType;
+  };
   customStyle?: Object;
   icon?: JSX.Element;
   onIconClick?: () => void;
@@ -20,9 +22,7 @@ interface IProductCardProps {
 }
 
 const ProductCard = ({
-  title,
-  price,
-  src,
+  item,
   customStyle,
   icon,
   onIconClick,
@@ -38,17 +38,17 @@ const ProductCard = ({
         </TouchableOpacity>
       ) : null}
       <View style={styles.imageWrapper}>
-        <Image style={styles.image} source={src} />
+        <Image style={styles.image} source={item?.src} />
       </View>
       <View style={[styles.titleFlex, { marginTop: titleIcon ? 10 : 0 }]}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{item?.title}</Text>
         {titleIcon && (
           <TouchableOpacity>
             <Text onPress={onTitleIconClick}>{titleIcon}</Text>
           </TouchableOpacity>
         )}
       </View>
-      <Text style={styles.price}>{price} €</Text>
+      <Text style={styles.price}>{item?.price} €</Text>
     </TouchableOpacity>
   );
 };

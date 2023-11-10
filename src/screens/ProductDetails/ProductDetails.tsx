@@ -1,31 +1,23 @@
-import {
-  Image,
-  StyleSheet,
-  View,
-  Dimensions,
-  Text,
-  Pressable,
-} from 'react-native';
+import { Image, View, Dimensions, Text } from 'react-native';
 import React, { useMemo, useRef, useState } from 'react';
 import Header from '@/components/Header/Header';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import CarouselDots from './components/CarouselDots';
 import { ScrollView } from 'react-native-gesture-handler';
 import Accordion from './components/Accordion';
-import BottomCard from './components/BottomCard';
-import { accordionData, sizes } from './helper';
-import ProductCard from '@/components/Cards/ProductCard';
-import { CartIcon, FavoriteIcon } from '@/assets/SvgIcons';
+import BottomCard from '../../components/Cards/BottomCard';
+import { accordionData } from './helper';
 import { PRODUCTS } from '@/mockData/products';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { styles } from './styles';
+import RelatedProducts from './components/RelatedProducts';
+import ProductSizes from './components/ProductSizes';
 
 const { width } = Dimensions.get('window');
 
 const ProductDetails = () => {
   const route = useRoute() as { params: { productId: number } };
-  const navigation = useNavigation<StackNavigationProp<any>>();
 
   const carouselRef = useRef<ICarouselInstance | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -86,30 +78,10 @@ const ProductDetails = () => {
             handleDotPress={handleDotPress}
           />
           <Text style={styles.productTitle}>{data?.title}</Text>
-
-          <ScrollView horizontal style={styles.lineBorderPadding}>
-            {sizes.map((item) => {
-              return (
-                <Pressable
-                  key={item.id}
-                  style={[
-                    styles.sizeBody,
-                    item.size === selectedSize && styles.sizeActiveBody,
-                  ]}
-                  onPress={() => handleSizeSelection(item.size)}
-                >
-                  <Text
-                    style={[
-                      styles.sizeText,
-                      item.size === selectedSize && styles.sizeActiveText,
-                    ]}
-                  >
-                    {item.size}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
+          <ProductSizes
+            selectedSize={selectedSize}
+            handleSizeSelection={handleSizeSelection}
+          />
 
           <View style={[styles.lineBorderPadding, { borderTopWidth: 0 }]}>
             <Text style={styles.productDetailsTitle}>Product Details</Text>
@@ -120,6 +92,7 @@ const ProductDetails = () => {
               fermentum
             </Text>
           </View>
+
           {accordionData.map((item) => {
             return (
               <Accordion
@@ -130,30 +103,7 @@ const ProductDetails = () => {
               />
             );
           })}
-
-          <View style={{ paddingVertical: 10, paddingHorizontal: 24 }}>
-            <Text style={styles.productDetailsTitle}>Related Products</Text>
-            <ProductCard
-              title={relatedProduct?.title!}
-              price={relatedProduct?.price!}
-              onPress={() => {
-                navigation.push('ProductDetails', {
-                  productId: relatedProduct?.id,
-                });
-              }}
-              customStyle={{ marginTop: 10 }}
-              src={relatedProduct?.src}
-              icon={<FavoriteIcon customStyle={{ backgroundColor: '#fff' }} />}
-              titleIcon={
-                <CartIcon
-                  wrapperStyle={{
-                    backgroundColor: '#FAFAFA',
-                    borderColor: 'transparent',
-                  }}
-                />
-              }
-            />
-          </View>
+          <RelatedProducts item={relatedProduct!} />
         </ScrollView>
         <SafeAreaView edges={['bottom']}>
           <BottomCard price={data?.price!} />
@@ -164,65 +114,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  imageWrapper: {
-    width: '100%',
-    height: 446,
-    backgroundColor: '#F2F2F2',
-  },
-  image: {
-    width: Dimensions.get('window').width,
-    height: 446,
-    resizeMode: 'center',
-  },
-  productTitle: {
-    color: '#141414',
-    fontSize: 16,
-    fontFamily: 'Saira-Medium',
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-  },
-  sizeBody: {
-    width: 50,
-    backgroundColor: '#fff',
-    padding: 5,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#D6D6D6',
-    marginRight: 10,
-  },
-  sizeText: {
-    color: '#141414',
-    fontFamily: 'Saira-Light',
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  sizeActiveBody: {
-    backgroundColor: '#141414',
-    borderColor: '#141414',
-  },
-  sizeActiveText: {
-    color: '#fff',
-  },
-  lineBorderPadding: {
-    borderWidth: 1,
-    borderColor: '#E5E5E5',
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-  },
-  productDetailsTitle: {
-    color: '#141414',
-    fontFamily: 'Saira-Medium',
-    fontSize: 16,
-  },
-  productDetailsText: {
-    color: '#424242',
-    fontFamily: 'Saira-Light',
-    fontSize: 14,
-    marginTop: 10,
-  },
-});

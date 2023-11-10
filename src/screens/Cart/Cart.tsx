@@ -5,7 +5,7 @@ import ListCard from '@/components/Cards/ListCard';
 import { FlashList } from '@shopify/flash-list';
 import { PRODUCTS } from '@/mockData/products';
 import SwipeableWrapper from '@/components/Swipeable/Swipeable';
-import CheckoutCard from './components/CheckoutCard';
+import CheckoutCard from '../../components/Cards/CheckoutCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Cart = () => {
@@ -18,22 +18,20 @@ const Cart = () => {
       </SafeAreaView>
       <View style={{ flexGrow: 1 }}>
         <View style={styles.container}>
-          <View style={{ height: '100%', flexGrow: 1, flexDirection: 'row' }}>
-            <FlashList
-              data={PRODUCTS}
-              renderItem={({ item, index }) => {
-                return (
-                  <View style={{ marginTop: index < 1 ? 0 : 16 }}>
-                    <SwipeableWrapper onPress={() => {}}>
-                      <ListCard item={item} />
-                    </SwipeableWrapper>
-                  </View>
-                );
-              }}
-              estimatedItemSize={10}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
+          <FlashList
+            data={PRODUCTS}
+            renderItem={({ item, index }) => {
+              return (
+                <View style={{ marginTop: index < 1 ? 0 : 16 }}>
+                  <SwipeableWrapper onPress={() => {}}>
+                    <ListCard item={item} />
+                  </SwipeableWrapper>
+                </View>
+              );
+            }}
+            estimatedItemSize={10}
+            showsVerticalScrollIndicator={false}
+          />
         </View>
         <CheckoutCard price='20' />
       </View>

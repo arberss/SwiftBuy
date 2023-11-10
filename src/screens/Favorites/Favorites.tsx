@@ -5,13 +5,16 @@ import { FlashList } from '@shopify/flash-list';
 import { PRODUCTS } from '@/mockData/products';
 import SwipeableWrapper from '@/components/Swipeable/Swipeable';
 import ListCard from '@/components/Cards/ListCard';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Favorites = () => {
   return (
     <>
-      <Header>
-        <Header.Title title='SwiftBuy' />
-      </Header>
+      <SafeAreaView edges={['top']}>
+        <Header>
+          <Header.Title title='SwiftBuy' />
+        </Header>
+      </SafeAreaView>
       <View style={styles.container}>
         <View style={{ height: '100%', flexGrow: 1, flexDirection: 'row' }}>
           <FlashList

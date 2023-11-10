@@ -1,4 +1,4 @@
-import ProductDetailsScreen from '@/screens/ProductDetails';
+import ProductDetails from '@/screens/ProductDetails/ProductDetails';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeTabs from '../Tabs/NavigationTabs';
 
@@ -14,7 +14,7 @@ const NavigationStack = () => {
       />
       <Stack.Screen
         name='ProductDetails'
-        component={ProductDetailsScreen}
+        component={ProductDetails}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

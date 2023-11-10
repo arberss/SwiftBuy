@@ -13,21 +13,6 @@ export const accordionData = [
   },
 ];
 
-export const IMAGES = [
-  {
-    id: 1,
-    src: require('@/assets/images/prod1img.png'),
-  },
-  {
-    id: 2,
-    src: require('@/assets/images/prod1img.png'),
-  },
-  {
-    id: 3,
-    src: require('@/assets/images/prodimg2.png'),
-  },
-];
-
 export const sizes = [
   {
     id: 1,

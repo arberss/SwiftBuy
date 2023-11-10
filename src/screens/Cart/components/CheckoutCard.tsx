@@ -27,10 +27,9 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 24,
     paddingVertical: 16,
-    position: 'absolute',
-    bottom: 78,
     backgroundColor: '#fff',
     borderWidth: 1,
+    borderBottomWidth: 0,
     borderColor: '#E5E5E5',
   },
   flex: {

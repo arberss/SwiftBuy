@@ -3,11 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Home from './Home';
 
 const HomeScreen = () => {
-  return (
-    <SafeAreaView>
-      <Home />
-    </SafeAreaView>
-  );
+  return <Home />;
 };
 
 export default HomeScreen;

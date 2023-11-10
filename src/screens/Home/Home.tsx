@@ -8,18 +8,21 @@ import { PRODUCTS } from '@/mockData/products';
 import { CartIcon } from '@/assets/SvgIcons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   return (
     <>
-      <Header>
-        <Header.Title title='SwiftBuy' />
-      </Header>
+      <SafeAreaView edges={['top']}>
+        <Header>
+          <Header.Title title='SwiftBuy' />
+        </Header>
+      </SafeAreaView>
       <View style={styles.container}>
         <Input placeholder='Search' onChangeText={() => {}} value={''} />
-        <View style={{ height: '100%', flexGrow: 1, flexDirection: 'row' }}>
+        <View style={{ flex: 1 }}>
           <FlashList
             data={PRODUCTS}
             renderItem={({ item, index }) => {
@@ -39,7 +42,6 @@ const Home = () => {
               );
             }}
             estimatedItemSize={10}
-            contentContainerStyle={{ paddingBottom: 300 }}
             showsVerticalScrollIndicator={false}
           />
         </View>
@@ -52,7 +54,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     paddingHorizontal: 24,
     paddingVertical: 16,
   },

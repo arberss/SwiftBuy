@@ -1,8 +1,7 @@
-import { Image, View, Dimensions, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import React, { useMemo, useRef, useState } from 'react';
 import Header from '@/components/Header/Header';
-import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
-import CarouselDots from './components/CarouselDots';
+import { ICarouselInstance } from 'react-native-reanimated-carousel';
 import { ScrollView } from 'react-native-gesture-handler';
 import Accordion from './components/Accordion';
 import BottomCard from '../../components/Cards/BottomCard';
@@ -14,8 +13,7 @@ import { styles } from './styles';
 import RelatedProducts from './components/RelatedProducts';
 import ProductSizes from './components/ProductSizes';
 import { useFavorites } from '@/store/useFavorites';
-
-const { width } = Dimensions.get('window');
+import Carousel from './components/Carousel';
 
 const ProductDetails = () => {
   const route = useRoute() as { params: { productId: number } };
@@ -67,23 +65,10 @@ const ProductDetails = () => {
         >
           <Carousel
             ref={carouselRef}
-            loop={false}
-            width={width}
-            height={446}
-            autoPlay={false}
-            data={[data?.src]}
-            scrollAnimationDuration={1000}
-            onSnapToItem={(index) => setActiveIndex(index)}
-            renderItem={({ item }) => (
-              <View style={styles.imageWrapper}>
-                <Image style={styles.image} source={item} />
-              </View>
-            )}
-          />
-          <CarouselDots
-            count={[data?.src]?.length}
             activeIndex={activeIndex}
             handleDotPress={handleDotPress}
+            setActiveIndex={setActiveIndex}
+            image={data?.src}
           />
           <Text style={styles.productTitle}>{data?.title}</Text>
           <ProductSizes

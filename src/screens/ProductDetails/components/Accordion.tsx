@@ -1,4 +1,4 @@
-import { ArrowBottomIcon } from '@/assets/SvgIcons';
+import { ArrowDownIcon, ArrowUpIcon } from '@/assets/SvgIcons';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -21,9 +21,7 @@ const Accordion = ({
     <View style={[styles.lineBorderPadding, styles.wrapper, style]}>
       <Pressable style={styles.flex} onPress={() => setIsOpen(!isOpen)}>
         <Text style={styles.title}>{title}</Text>
-        <Text>
-          <ArrowBottomIcon />
-        </Text>
+        <Text>{isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}</Text>
       </Pressable>
       {isOpen && <Text style={styles.text}>{description}</Text>}
     </View>
@@ -55,6 +53,6 @@ const styles = StyleSheet.create({
     color: '#424242',
     fontFamily: 'Saira-Light',
     fontSize: 14,
-    marginTop: 15
+    marginTop: 15,
   },
 });

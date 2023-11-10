@@ -7,9 +7,10 @@ import { FlashList } from '@shopify/flash-list';
 import { PRODUCTS } from '@/mockData/products';
 import { CartIcon } from '@/assets/SvgIcons';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Home = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<any>>();
 
   return (
     <>
@@ -27,7 +28,9 @@ const Home = () => {
                   title={item?.title}
                   price={item?.price}
                   onPress={() => {
-                    navigation.navigate('ProductDetails');
+                    navigation.navigate('ProductDetails', {
+                      productId: item.id,
+                    });
                   }}
                   customStyle={{ marginTop: index < 1 ? 0 : 22 }}
                   src={item.src}

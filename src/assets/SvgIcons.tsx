@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import * as React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Path, G, Defs } from 'react-native-svg';
 import { StyleSheet, View } from 'react-native';
 
 export function BackIcon(props: any) {
@@ -39,6 +39,7 @@ export function FavoriteIcon(props: any) {
     fillColor = '#fff',
     width = '20px',
     height = '20px',
+    stroke = '#737373',
   } = props;
 
   return (
@@ -54,7 +55,7 @@ export function FavoriteIcon(props: any) {
         <Path
           clipRule='evenodd'
           d='M11.993 5.136c-2-2.338-5.333-2.966-7.838-.826s-2.858 5.719-.89 8.25c1.635 2.105 6.585 6.544 8.207 7.98.182.162.272.242.378.274a.504.504 0 00.286 0c.106-.032.197-.112.378-.273 1.623-1.437 6.573-5.876 8.208-7.98 1.967-2.532 1.658-6.133-.89-8.251-2.549-2.118-5.84-1.512-7.839.826z'
-          stroke='#737373'
+          stroke={stroke}
           strokeWidth={1.66667}
           strokeLinecap='round'
           strokeLinejoin='round'
@@ -222,7 +223,7 @@ export function CartTabIcon(props: any) {
   );
 }
 
-export function ArrowBottomIcon(props: any) {
+export function ArrowDownIcon(props: any) {
   const {
     wrapperStyle,
     fillColor = '#fff',
@@ -243,6 +244,70 @@ export function ArrowBottomIcon(props: any) {
         <Path
           d='M6 9.5l6 6 6-6'
           stroke='#141414'
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          fill={fillColor}
+        />
+      </Svg>
+    </View>
+  );
+}
+
+export function ArrowUpIcon(props: any) {
+  const {
+    wrapperStyle,
+    fillColor = '#fff',
+    width = '24px',
+    height = '24px',
+  } = props;
+  return (
+    <View style={wrapperStyle}>
+      <View style={wrapperStyle}>
+        <Svg
+          width={width}
+          height={height}
+          viewBox='0 0 24 25'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'
+          style={{ transform: [{ rotate: '180deg' }] }}
+          {...props}
+        >
+          <Path
+            d='M6 9.5l6 6 6-6'
+            stroke='#141414'
+            strokeWidth={2}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            fill={fillColor}
+          />
+        </Svg>
+      </View>
+    </View>
+  );
+}
+
+export function DeleteIcon(props: any) {
+  const {
+    wrapperStyle,
+    fillColor = '#fff',
+    width = '24px',
+    height = '24px',
+  } = props;
+
+  return (
+    <View style={wrapperStyle}>
+      <Svg
+        width={width}
+        height={height}
+        viewBox='0 0 24 25'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+        {...props}
+      >
+        <Path
+          d='M16 6.5v-.8c0-1.12 0-1.68-.218-2.108a2 2 0 00-.874-.874C14.48 2.5 13.92 2.5 12.8 2.5h-1.6c-1.12 0-1.68 0-2.108.218a2 2 0 00-.874.874C8 4.02 8 4.58 8 5.7v.8m2 5.5v5m4-5v5M3 6.5h18m-2 0v11.2c0 1.68 0 2.52-.327 3.162a3 3 0 01-1.311 1.311c-.642.327-1.482.327-3.162.327H9.8c-1.68 0-2.52 0-3.162-.327a3 3 0 01-1.311-1.311C5 20.22 5 19.38 5 17.7V6.5'
+          stroke='#fff'
           strokeWidth={2}
           strokeLinecap='round'
           strokeLinejoin='round'

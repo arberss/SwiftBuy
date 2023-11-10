@@ -6,28 +6,50 @@ import {
   Text,
   Pressable,
 } from 'react-native';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import Header from '@/components/Header/Header';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 import CarouselDots from './components/CarouselDots';
 import { ScrollView } from 'react-native-gesture-handler';
 import Accordion from './components/Accordion';
 import BottomCard from './components/BottomCard';
-import { accordionData, IMAGES, sizes } from './helper';
+import { accordionData, sizes } from './helper';
 import ProductCard from '@/components/Cards/ProductCard';
 import { CartIcon, FavoriteIcon } from '@/assets/SvgIcons';
 import { PRODUCTS } from '@/mockData/products';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { width } = Dimensions.get('window');
 
 const ProductDetails = () => {
+  const route = useRoute() as { params: { productId: number } };
+  const navigation = useNavigation<StackNavigationProp<any>>();
+
   const carouselRef = useRef<ICarouselInstance | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   const handleDotPress = (index: number) => {
     carouselRef?.current?.scrollTo({ index });
     setActiveIndex(index);
   };
+
+  const handleSizeSelection = (size: string) => {
+    setSelectedSize(size);
+  };
+
+  const data = PRODUCTS.find(
+    (product) => product.id === route?.params?.productId
+  );
+
+  const randomId = useMemo(() => {
+    return Math.floor(Math.random() * PRODUCTS.length) + 1;
+  }, []);
+
+  const relatedProduct = useMemo(() => {
+    return PRODUCTS.find((product) => product.id === randomId);
+  }, [randomId, PRODUCTS.length]);
 
   return (
     <>
@@ -45,27 +67,41 @@ const ProductDetails = () => {
           width={width}
           height={446}
           autoPlay={false}
-          data={IMAGES}
+          data={[data?.src]}
           scrollAnimationDuration={1000}
           onSnapToItem={(index) => setActiveIndex(index)}
           renderItem={({ item }) => (
             <View style={styles.imageWrapper}>
-              <Image style={styles.image} source={item.src} />
+              <Image style={styles.image} source={item} />
             </View>
           )}
         />
         <CarouselDots
-          count={IMAGES?.length}
+          count={[data?.src]?.length}
           activeIndex={activeIndex}
           handleDotPress={handleDotPress}
         />
-        <Text style={styles.productTitle}>Title</Text>
+        <Text style={styles.productTitle}>{data?.title}</Text>
 
         <ScrollView horizontal style={styles.lineBorderPadding}>
           {sizes.map((item) => {
             return (
-              <Pressable key={item.id} style={[styles.sizeBody]}>
-                <Text style={[styles.sizeText]}>{item.size}</Text>
+              <Pressable
+                key={item.id}
+                style={[
+                  styles.sizeBody,
+                  item.size === selectedSize && styles.sizeActiveBody,
+                ]}
+                onPress={() => handleSizeSelection(item.size)}
+              >
+                <Text
+                  style={[
+                    styles.sizeText,
+                    item.size === selectedSize && styles.sizeActiveText,
+                  ]}
+                >
+                  {item.size}
+                </Text>
               </Pressable>
             );
           })}
@@ -93,11 +129,15 @@ const ProductDetails = () => {
         <View style={{ paddingVertical: 10, paddingHorizontal: 24 }}>
           <Text style={styles.productDetailsTitle}>Related Products</Text>
           <ProductCard
-            title={PRODUCTS[0].title}
-            price={PRODUCTS[0].price}
-            onPress={() => {}}
+            title={relatedProduct?.title!}
+            price={relatedProduct?.price!}
+            onPress={() => {
+              navigation.push('ProductDetails', {
+                productId: relatedProduct?.id,
+              });
+            }}
             customStyle={{ marginTop: 10 }}
-            src={PRODUCTS[0].src}
+            src={relatedProduct?.src}
             icon={<FavoriteIcon customStyle={{ backgroundColor: '#fff' }} />}
             titleIcon={
               <CartIcon
@@ -110,7 +150,7 @@ const ProductDetails = () => {
           />
         </View>
       </ScrollView>
-      <BottomCard price='99.00' />
+      <BottomCard price={data?.price!} />
     </>
   );
 };
@@ -140,25 +180,25 @@ const styles = StyleSheet.create({
   },
   sizeBody: {
     width: 50,
-    backgroundColor: '#141414',
+    backgroundColor: '#fff',
     padding: 5,
     borderRadius: 8,
     borderWidth: 1,
-    bordercolor: '#141414',
+    borderColor: '#D6D6D6',
     marginRight: 10,
   },
   sizeText: {
-    color: '#fff',
+    color: '#141414',
     fontFamily: 'Saira-Light',
     fontSize: 14,
     textAlign: 'center',
   },
   sizeActiveBody: {
-    backgroundColor: '#fff',
-    borderColor: '#D6D6D6',
+    backgroundColor: '#141414',
+    borderColor: '#141414',
   },
   sizeActiveText: {
-    color: '#141414',
+    color: '#fff',
   },
   lineBorderPadding: {
     borderWidth: 1,

@@ -1,5 +1,6 @@
-import { CartTabIcon, HomeIcon } from '@/assets/SvgIcons';
+import { CartTabIcon, FavoriteIcon, HomeIcon } from '@/assets/SvgIcons';
 import CartScreen from '@/screens/Cart';
+import FavoritesScreen from '@/screens/Favorites';
 import HomeScreen from '@/screens/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, View } from 'react-native';
@@ -43,7 +44,7 @@ const NavigationTabs = () => {
           tabBarIcon: ({ focused }) =>
             focused ? (
               <View style={styles.activeTab}>
-                <CartTabIcon stroke='#fff' />
+                <CartTabIcon stroke='#fff' fillColor='transparent' />
               </View>
             ) : (
               <CartTabIcon />
@@ -51,6 +52,36 @@ const NavigationTabs = () => {
         }}
         name='CartTab'
         component={CartScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) =>
+            focused ? (
+              <View style={styles.activeTab}>
+                <FavoriteIcon
+                  width='26px'
+                  height='26px'
+                  stroke='#fff'
+                  wrapperStyle={{
+                    borderWidth: 0,
+                    backgroundColor: 'transparent',
+                  }}
+                />
+              </View>
+            ) : (
+              <FavoriteIcon
+                width='24px'
+                height='24px'
+                wrapperStyle={{
+                  borderWidth: 0,
+                  backgroundColor: 'transparent',
+                }}
+              />
+            ),
+        }}
+        name='FavoriteTab'
+        component={FavoritesScreen}
       />
     </Tab.Navigator>
   );

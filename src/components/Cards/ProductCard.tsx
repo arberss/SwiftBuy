@@ -1,7 +1,6 @@
 import {
   Image,
   ImageSourcePropType,
-  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,

@@ -1,13 +1,12 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import Header from '@/components/Header/Header';
-import ListCard from '@/components/Cards/ListCard';
 import { FlashList } from '@shopify/flash-list';
 import { PRODUCTS } from '@/mockData/products';
 import SwipeableWrapper from '@/components/Swipeable/Swipeable';
-import CheckoutCard from './components/CheckoutCard';
+import ListCard from '@/components/Cards/ListCard';
 
-const Cart = () => {
+const Favorites = () => {
   return (
     <>
       <Header>
@@ -27,22 +26,20 @@ const Cart = () => {
               );
             }}
             estimatedItemSize={10}
-            contentContainerStyle={{ paddingBottom: 250 }}
+            contentContainerStyle={{ paddingBottom: 150 }}
             showsVerticalScrollIndicator={false}
           />
         </View>
       </View>
-      <CheckoutCard price='20' />
     </>
   );
 };
 
-export default Cart;
+export default Favorites;
 
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 16,
     paddingLeft: 16,
-    position: 'relative',
   },
 });
